@@ -11,7 +11,6 @@ gamma = 1.0/10 # estimating about 10 days to recovery
 
 # r1 - Unmitigated COVID: r = 3 with no social distancing
 # r = 3 
-
 # r2 - Suppressed transmission due to lockdown
 
 r = 0.8
@@ -51,6 +50,14 @@ S[0] = Npeople - I[0]
 R[0] = 0
 
 # Implementing the Euler algorithm
+
+'''
+The Euler method is a first-order method, which means that the local error (error per step) 
+is proportional to the square of the step size, 
+and the global error (error at a given time) is proportional to the step size. 
+The Euler method often serves as the basis to construct more complex method
+'''
+
 for n in range(0,N-1):
     # Compute all three right hand side functions at t[n] 
     gS,gI,gR = func_SIR(t[n],S[n],I[n],R[n])

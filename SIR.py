@@ -13,7 +13,7 @@ gamma = 1.0/10 # estimating about 10 days to recovery
 # r = 3 
 # r2 - Suppressed transmission due to lockdown
 
-r = 0.8
+r = 2
 
 beta =  gamma*r
 
@@ -26,7 +26,7 @@ def func_SIR(t,S,I,R):
     return gS,gI,gR
 
 # Choose a domain of integration
-tmax = 100  # days
+tmax = 200  # days
 # Choose a time step (try different values)
 dt = 0.02  # i.e.,  a couple of hours
 # Number of time steps:
@@ -42,7 +42,7 @@ R = np.zeros((N,))
 # I[0] = 100
 
 # Initial condition 2: 10% of people infected
-I[0] = 0.1*Npeople
+I[0] = 0.001*Npeople
 
 # Everybody else is healthy but susceptible
 S[0] = Npeople - I[0]

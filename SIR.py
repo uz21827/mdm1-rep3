@@ -14,7 +14,7 @@ gamma = 1.0/14 # estimating about 10 days to recovery
 # r = 3 
 # r2 - Suppressed transmission due to lockdown
 
-r = 1.3
+r = 1.6
 
 beta =  gamma*r
 

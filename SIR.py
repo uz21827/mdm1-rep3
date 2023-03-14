@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 
 # The three parameters of the SIR model
 # Using them as global variables so as not to clutter up the notation
-Npeople = 66000000 # population of the UK
+Npeople = 67330000 # population of the UK
 
-gamma = 1.0/10 # estimating about 10 days to recovery
+gamma = 2.0/10 # estimating about 10 days to recovery
 # We'll specify r and deduce beta from beta = gamma*r
 
 # r1 - Unmitigated COVID: r = 3 with no social distancing
 # r = 3 
 # r2 - Suppressed transmission due to lockdown
 
-r = 2
+r = 1.3
 
 beta =  gamma*r
 
@@ -26,7 +26,7 @@ def func_SIR(t,S,I,R):
     return gS,gI,gR
 
 # Choose a domain of integration
-tmax = 200  # days
+tmax = 365  # days
 # Choose a time step (try different values)
 dt = 0.02  # i.e.,  a couple of hours
 # Number of time steps:
@@ -42,7 +42,7 @@ R = np.zeros((N,))
 # I[0] = 100
 
 # Initial condition 2: 10% of people infected
-I[0] = 0.001*Npeople
+I[0] = 0.01*Npeople
 
 # Everybody else is healthy but susceptible
 S[0] = Npeople - I[0]

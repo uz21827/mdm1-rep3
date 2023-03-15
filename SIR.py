@@ -15,7 +15,7 @@ gamma = 1.0/10 # estimating about 10 days to recovery
 
 # r2 - Suppressed transmission due to lockdown
 
-r = 0.8
+r = 2
 
 beta =  gamma*r
 
@@ -44,7 +44,7 @@ R = np.zeros((N,))
 # I[0] = 100
 
 # Initial condition 2: 10% of people infected
-I[0] = 0.1*Npeople
+I[0] = 0.01*Npeople
 
 # Everybody else is healthy but susceptible
 S[0] = Npeople - I[0]
@@ -79,3 +79,4 @@ Susceptible doesnt seem to work very well, not sure why, Euler method not great
 Look into using odeint from scripy.integrate instead as is more an "exact" result
 Keep both methods though to show progress etc etc
 '''
+

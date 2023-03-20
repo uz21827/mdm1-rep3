@@ -11,7 +11,7 @@ Susceptible doesnt work properly so needs fixing
 # Using them as global variables so as not to clutter up the notation
 Npeople = 66000000 # population of the UK
 
-gamma = 1.0/10 # estimating about 10 days to recovery
+gamma = 1/10 # estimating about 10 days to recovery
 # We'll specify r and deduce beta from beta = gamma*r
 
 # r1 - Unmitigated COVID: r = 3 with no social distancing
@@ -51,6 +51,7 @@ I[0] = 0.01*Npeople
 
 ## Everybody else is healthy but susceptible
 S[0] = Npeople - I[0]
+
 ## and nobody has recovered and is therefore immune
 R[0] = 0
 
@@ -75,6 +76,8 @@ plt.legend()
 plt.title('SIR model for ' + r'$\beta =$' + str(beta)+ r', $\gamma =$' + str(gamma))
 plt.show()
 
+
+
 '''
 odeint solution (more exact), adjust values to fit population etc for covid
 needs work to fix as infected doesnt look right, adjust values to make work etc
@@ -82,13 +85,13 @@ needs work to fix as infected doesnt look right, adjust values to make work etc
 '''
 
 # Total population, N.
-N = 100000
+N = 66000000 
 # Initial number of infected and recovered individuals, I0 and R0.
-I0, R0 = 1, 0
+I0, R0 = 1000, 0
 # Everyone else, S0, is susceptible to infection initially.
 S0 = N - I0 - R0
 # Contact rate, beta, and mean recovery rate, gamma, (in 1/days).
-beta, gamma = 0.2, 1./10 
+beta, gamma = 0.2, 1/10 
 # A grid of time points (in days)
 t = np.linspace(0, 365, 365)
 
@@ -107,22 +110,17 @@ ret = odeint(deriv, y0, t, args=(N, beta, gamma))
 S, I, R = ret.T
 
 # Plot the data on three separate curves for S(t), I(t) and R(t)
-fig = plt.figure(facecolor='w')
-ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
-ax.plot(t, S/1000, 'b', alpha=0.5, lw=2, label='Susceptible')
-ax.plot(t, I/1000, 'r', alpha=0.5, lw=2, label='Infected')
-ax.plot(t, R/1000, 'g', alpha=0.5, lw=2, label='Recovered with immunity')
-ax.set_xlabel('Time /days')
-ax.set_ylabel('Number (10000s)')
-ax.set_ylim(0,10)
-ax.yaxis.set_tick_params(length=0)
-ax.xaxis.set_tick_params(length=0)
-ax.grid(b=True, which='major', c='w', lw=2, ls='-')
-legend = ax.legend()
-legend.get_frame().set_alpha(0.5)
-for spine in ('top', 'right', 'bottom', 'left'):
-    ax.spines[spine].set_visible(False)
+
+plt.figure(figsize=(8,6))
+plt.semilogy(t,S,'b',lw=2,label='Susceptible')
+plt.semilogy(t,I,'r',lw=2,label='Infected')
+plt.semilogy(t,R,'g',lw=2,label='Recovered')
+plt.xlabel('time (days)')
+plt.ylabel('Number of people')
+plt.legend()
+plt.title('SIR model for ' + r'$\beta =$' + str(beta)+ r', $\gamma =$' + str(gamma))
 plt.show()
+
 
 '''
 Notes:

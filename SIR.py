@@ -9,7 +9,7 @@ Euler Method for solving (numerical method, high inaccuracy),
 Susceptible doesnt work properly so needs fixing
 '''
 
-f = open('UK_Covid_Data.csv')
+f = open('UK Covid Data.csv')
 csv_reader = csv.reader(f)
 
 R_values = []
@@ -18,8 +18,9 @@ for line_no, line in enumerate(csv_reader, 1):
     if line_no == 1:
         pass
     else:
-        R_values.append(float(line[1]))
+        R_values.append(line[3])
 
+print(R_values)
 # The three parameters of the SIR model
 # Using them as global variables so as not to clutter up the notation
 Npeople = 67330000 # population of the UK
@@ -36,14 +37,12 @@ def func_SIR(t,S,I,R,gamma,r):
     gI = (gamma*r[n+1]*S*I/Npeople) - gamma*I
     gR = gamma*I
     # We return the g functions
-    print(gI)
     return gS,gI,gR
 
 ## Choose a domain of integration
 tmax = 365  # days
 ## Choose a time step (try different values)
 dt = 1
-
 ## Number of time steps:
 N = int(tmax/dt)
 

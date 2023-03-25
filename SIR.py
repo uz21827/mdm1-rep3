@@ -22,7 +22,7 @@ N = int(tmax/dt) # umber of time steps
 
 def func_SIR(t, S, I, gamma, R_current):
     gS_local = - ((gamma * R_current) * S * I) / Npeople
-    gI_local = (gamma * R_current * S * I / Npeople) - gamma * I
+    gI_local = ((gamma * R_current * S * I) / Npeople) - gamma * I
     gR_local = gamma * I
     return gS_local, gI_local, gR_local
 
@@ -56,8 +56,8 @@ for n in range(0, N-1):
 # Plot of the results
 plt.figure(figsize=(8,6))
 plt.plot(t,S,'-b',lw=2,label='Susceptible')
-plt.plot(t,I,'-r',lw=2,label='Infected')
-plt.plot(t,R,'-g',lw=2,label='Recovered')
+plt.semilogy(t,I,'-r',lw=2,label='Infected')
+plt.semilogy(t,R,'-g',lw=2,label='Recovered')
 plt.xlabel('time (days)')
 plt.xlim(0,tmax)
 plt.ylim(0,Npeople)

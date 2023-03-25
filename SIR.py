@@ -10,12 +10,13 @@ csv_reader = csv.reader(f)
 R_values_raw = []
 with open('UK Covid Data.csv', 'r') as f:
     csv_reader = csv.reader(f)
-    next(csv_reader)  # skip header row
+    for i in range(0,244):
+        next(csv_reader)  # skip header row
     R_values_raw = [float(row[3]) for row in csv_reader]
 
 Npeople = 67330000.0 # population of the UK
 gamma = 1/14.0 #14 days to recover
-tmax = 1100  # days
+tmax = 820  # days
 dt = 1 #time step - 1 day
 N = int(tmax/dt) # umber of time steps
 
@@ -33,10 +34,10 @@ I = np.zeros((N,))
 R = np.zeros((N,))
 
 # Initial condition 1: A handful of infected
-I[0] = 24.0
+I[0] = 20349
 
 # and nobody has recovered and is therefore immune
-R[0] = 68.0
+R[0] = 451718.0
 
 # Everybody else is healthy but susceptible
 S[0] = Npeople - R[0] - I[0]
@@ -55,12 +56,12 @@ for n in range(0, N-1):
     
 # Plot of the results
 plt.figure(figsize=(8,6))
-plt.plot(t,S,'-b',lw=2,label='Susceptible')
+plt.semilogy(t,S,'-b',lw=2,label='Susceptible')
 plt.semilogy(t,I,'-r',lw=2,label='Infected')
 plt.semilogy(t,R,'-g',lw=2,label='Recovered')
 plt.xlabel('time (days)')
 plt.xlim(0,tmax)
 plt.ylim(0,Npeople)
-plt.ylabel('Number of people (millions)')
-plt.title('SIR model for UK Covid Data - R value updated each time step')
+plt.ylabel('Number of peope')
+plt.title('SIR model for UK Covid Data: 01/10/2020 - 02/01/2023')
 plt.show()
